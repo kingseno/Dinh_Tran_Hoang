@@ -35,7 +35,7 @@
 /*******************************************************************************
 **                      Global Data                                           **
 *******************************************************************************/
-
+extern ProductData productData;
 /*******************************************************************************
 **                      Function Definitions                                  **
 *******************************************************************************/
@@ -84,14 +84,34 @@ void loadMainScreen() {
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadImport() {
+    int productId, supplierId, categoryId;
+    double price;
+    string productName, unit;
+    cout << "Please type Product ID: ";
+    cin >> productId;
+    cout << "Please type Product Name: ";
+    cin >> productName;
+    cout << "Please type Supplier ID: ";
+    cin >> supplierId;
+    cout << "Please type Category ID: ";
+    cin >> categoryId;
+    cout << "Please type Unit: ";
+    cin >> unit;
+    cout << "Please type Price: ";
+    cin >> price;
 
+    Products product(productId, productName, supplierId,
+                categoryId, unit, price);
+    productData.addProduct(product);
+
+    productData.exportToFile("productData.json");
 }
 
 /*******************************************************************************
 ** Function Name         : loadMainScreen
 **
 ** Description           : To load the main screen when start up application
-**
+**4
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadExport() {
