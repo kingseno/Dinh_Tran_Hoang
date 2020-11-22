@@ -6,8 +6,6 @@
  */
 
 #include "CustomersData.h"
-#include <fstream>
-#include "../libs/json.hpp"
 
 using json = nlohmann::json;
 
