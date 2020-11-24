@@ -45,10 +45,22 @@
 #include <algorithm>
 /* To use ifstream, ofstream */
 #include <fstream>
+/*To use random*/
+#include <stdlib.h>
+#include <time.h>
+/*To use gotoXY*/
+#include <windows.h>
 /* To use class Products in this file */
 #include "../DataAccess/ProductData.h"
-#include "../DataAccess/OrderDetailData.h"
 #include "../BusinessObject/Products.h"
+#include "../BusinessObject/Orders.h"
+#include "../DataAccess/OrdersData.h"
+#include "../BusinessObject/OrderDetails.h"
+#include "../DataAccess/OrderDetailData.h"
+#include "../BusinessObject/Customers.h"
+#include "../DataAccess/CustomersData.h"
+#include "../BusinessObject/Suppliers.h"
+#include "../DataAccess/SuppliersData.h"
 #include "StockManagement.h"
 
 using namespace std;
@@ -58,6 +70,7 @@ void loadImport();
 void loadExport();
 void loadStock();
 void loadCategory();
+void gotoXY(int, int);
 
 #endif
 
