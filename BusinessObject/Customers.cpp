@@ -1,7 +1,18 @@
+/** @file Customers.cpp
+ *  @brief Class to create objects which storage data of Customers.
+ *
+ *  @author Nguyen Manh Hoang
+ *  @bug No known bugs.
+ */
+
 #include "Customers.h"
+// This is the constructor for creating a new object with no parameters
 
 Customers::Customers(){
 }
+
+// This is a constructor that creates a new object with parameters
+
 Customers::Customers(int CustomerId, string CustomerName, string ContactName, string Address, string City, string PostalCode, string Country){
     this->CustomerId = CustomerId;
     this->CustomerName = CustomerName;
@@ -11,6 +22,10 @@ Customers::Customers(int CustomerId, string CustomerName, string ContactName, st
     this->PostalCode = PostalCode;
     this->Country = Country;
 }
+/** @brief Function convert this object into a string.
+ *  
+ *  @return a string object;
+ */
 
 string Customers::ToString(){
     string s;
@@ -30,7 +45,6 @@ string Customers::ToString(){
  *  
  *  Function converts this object to json object.
  *  @return a json object;
- *  Example: Customers p(2, "Chang", 1, 1, "bottle", 19.0) -> {"CategoryId":1,"Price":19.0,"CustomerId":2,"CustomerName":"Chang","SupplierId":1,"Unit":"bottle"}
  */
 json Customers::ToJson(){
     json j;

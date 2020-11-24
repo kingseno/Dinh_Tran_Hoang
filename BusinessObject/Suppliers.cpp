@@ -1,7 +1,15 @@
+/** @file Suppliers.cpp
+ *  @brief Class to create objects which storage data of Suppliers.
+ *
+ *  @author Nguyen Manh Hoang
+ *  @bug No known bugs.
+ */
 #include "Suppliers.h"
-
+// This is the constructor for creating a new object with no parameters
 Suppliers::Suppliers(){
 }
+
+// This is a constructor that creates a new object with parameters
 Suppliers::Suppliers(int SupplierId, string SupplierName, string ContactName, string Address, string City, string PostalCode, string Country, string Phone) {
     this->SupplierId = SupplierId;
     this->SupplierName = SupplierName;
@@ -13,6 +21,10 @@ Suppliers::Suppliers(int SupplierId, string SupplierName, string ContactName, st
     this->Phone = Phone;
 }
 
+/** @brief Function convert this object into a string.
+ *  
+ *  @return a string object;
+ */
 string Suppliers::ToString(){
     string s;
     s += "{";
@@ -32,7 +44,6 @@ string Suppliers::ToString(){
  *  
  *  Function converts this object to json object.
  *  @return a json object;
- *  Example: Suppliers p(2, "Chang", 1, 1, "bottle", 19.0) -> {"CategoryId":1,"Price":19.0,"ProductId":2,"ProductName":"Chang","SupplierId":1,"Unit":"bottle"}
  */
 json Suppliers::ToJson(){
     json j;

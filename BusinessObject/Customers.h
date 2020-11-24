@@ -1,15 +1,3 @@
-/** @file Customers.h
- *  @brief Function prototypes for the console driver.
- *
- *  This contains the prototypes for the console
- *  driver and eventually any macros, constants,
- *  or global variables you will need.
- *
- *  @author Harry Q. Bovik (hqbovik)
- *  @author Fred Hacker (fhacker)
- *  @bug No known bugs.
- */
-
 #ifndef _Customers_h
 #define _Customers_h
 

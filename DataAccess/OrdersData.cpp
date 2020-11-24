@@ -1,18 +1,20 @@
 /** @file OrdersData.h
  *  @brief OrdersData stores all Orders objects
  *  
- *  @author Van-Minh Le (lvminh2k)
+ *  @author Nguyen Manh Hoang
  *  @bug No known bugs.
  */
 
 #include "OrdersData.h"
 using json = nlohmann::json;
 
+// Constructor
 OrdersData::OrdersData(){
     maxId = 0;
     _data.resize(0);
 }
 
+// Constructor to load Orders list from json file
 OrdersData::OrdersData(string filename){
     maxId = 0;
     _data.resize(0);
@@ -67,11 +69,17 @@ int OrdersData::Update(int i, Orders p){
  *  
  *  Function return a Orders object at a position inside the list inside OrdersData.
  *  @return Orders object;
- *  if fail, return NULL;
  */
 Orders OrdersData::Get(int i){
     return _data[i];
 }
+
+/** @brief Function return a Orders object at a position inside the list inside OrdersData.
+ *  
+ *  Function return a Orders object at a position inside the list inside OrdersData.
+ *  @return Orders object;
+ *  if fail, return NULL;
+ */
 
 Orders* OrdersData::GetPointer(int i){
     Orders* p = nullptr;
@@ -80,13 +88,15 @@ Orders* OrdersData::GetPointer(int i){
     p = &_data[i];
     return p;
 }
-//vector<Orders>::iterator
+// Function "GetOrderById" get Order with its ID in the Order list.
 vector<Orders>::iterator OrdersData::GetOrderById(int OrderId){
 	vector<Orders>::iterator it = find_if(_data.begin(),_data.end(), [&](const Orders& od) {
 		return od.OrderId == OrderId;
 	});
         return it;
 }
+
+// Function "DeleteOrderById" Delete Order with its ID in the Order list.
 void OrdersData::DeleteOrderById(int OrderId){
     _data.erase(GetOrderById(OrderId));
 }

@@ -1,7 +1,7 @@
 /** @file CustomersData.h
  *  @brief CustomersData stores all Customers objects
  *  
- *  @author Van-Minh Le (lvminh2k)
+ *  @author Nguyen Manh Hoang
  *  @bug No known bugs.
  */
 
@@ -9,11 +9,14 @@
 
 using json = nlohmann::json;
 
+// Constructor
 CustomersData::CustomersData(){
     maxId = 0;
     _data.resize(0);
 }
 
+// Constructor to load Customers list from json file
+ 
 CustomersData::CustomersData(string filename){
     maxId = 0;
     _data.resize(0);
@@ -70,11 +73,16 @@ int CustomersData::Update(int i, Customers p){
  *  
  *  Function return a Customers object at a position inside the list inside CustomersData.
  *  @return Customers object;
- *  if fail, return NULL;
  */
 Customers CustomersData::Get(int i){
     return _data[i];
 }
+/** @brief Function return a Customers object at a position inside the list inside CustomersData.
+ *  
+ *  Function return a Customers object at a position inside the list inside CustomersData.
+ *  @return Customers object;
+ *  if fail, return NULL;
+ */
 
 Customers* CustomersData::GetPointer(int i){
     Customers* p = nullptr;
@@ -84,12 +92,16 @@ Customers* CustomersData::GetPointer(int i){
     return p;
 }
 
+// Function "GetCustomerById" get Customer with its ID in the Customer list.
+
 vector<Customers>::iterator CustomersData::GetCustomerById(int CustomerId){
 	vector<Customers>::iterator it = find_if(_data.begin(),_data.end(), [&](const Customers& ct) {
 		return ct.CustomerId == CustomerId;
 	});
         return it;
 }
+
+// Function "DeleteCustomerById" Delete Customer with its ID in the Customer list.
 void CustomersData::DeleteCustomerById(int CustomerId){
     _data.erase(GetCustomerById(CustomerId));
 }

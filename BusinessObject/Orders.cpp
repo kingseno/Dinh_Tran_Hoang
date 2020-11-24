@@ -1,7 +1,16 @@
+/** @file Orders.cpp
+ *  @brief Class to create objects which storage data of Orders.
+ *
+ *  @author Nguyen Manh Hoang
+ *  @bug No known bugs.
+ */
+
 #include "Orders.h"
 
+// This is the constructor for creating a new object with no parameters
 Orders::Orders(){
 }
+// This is a constructor that creates a new object with parameters
 Orders::Orders(int OrderId, int CustomerId, int EmployeeId, string OrderDate, int ShipperId){
     this->OrderId = OrderId;
     this->CustomerId = CustomerId;
@@ -10,6 +19,10 @@ Orders::Orders(int OrderId, int CustomerId, int EmployeeId, string OrderDate, in
     this->ShipperId = ShipperId;
 }
 
+/** @brief Function convert this object into a string.
+ *  
+ *  @return a string object;
+ */
 string Orders::ToString(){
     string s;
     s += "{";
@@ -26,7 +39,6 @@ string Orders::ToString(){
  *  
  *  Function converts this object to json object.
  *  @return a json object;
- *  Example: Orders p(2, "Chang", 1, 1, "bottle", 19.0) -> {"CategoryId":1,"Price":19.0,"ProductId":2,"ProductName":"Chang","SupplierId":1,"Unit":"bottle"}
  */
 json Orders::ToJson(){
     json j;

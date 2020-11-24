@@ -1,19 +1,20 @@
 /** @file SuppliersData.h
  *  @brief SuppliersData stores all Suppliers objects
  *  
- *  @author Van-Minh Le (lvminh2k)
+ *  @author Nguyen Manh Hoang
  *  @bug No known bugs.
  */
 
 #include "SuppliersData.h"
 
 using json = nlohmann::json;
-
+// Constructor
 SuppliersData::SuppliersData(){
     maxId = 0;
     _data.resize(0);
 }
 
+// Constructor to load Suppliers list from json file
 SuppliersData::SuppliersData(string filename){
     maxId = 0;
     _data.resize(0);
@@ -71,11 +72,17 @@ int SuppliersData::Update(int i, Suppliers p){
  *  
  *  Function return a Suppliers object at a position inside the list inside SuppliersData.
  *  @return Suppliers object;
- *  if fail, return NULL;
  */
 Suppliers SuppliersData::Get(int i){
     return _data[i];
 }
+
+/** @brief Function return a Suppliers object at a position inside the list inside SuppliersData.
+ *  
+ *  Function return a Suppliers object at a position inside the list inside SuppliersData.
+ *  @return Suppliers object;
+ *  if fail, return NULL;
+ */
 
 Suppliers* SuppliersData::GetPointer(int i){
     Suppliers* p = nullptr;
@@ -85,12 +92,15 @@ Suppliers* SuppliersData::GetPointer(int i){
     return p;
 }
 
+// Function "GetSupplierById" get Supplier with its ID in the Supplier list.
 vector<Suppliers>::iterator SuppliersData::GetSupplierById(int SupplierId){
 	vector<Suppliers>::iterator it = find_if(_data.begin(),_data.end(), [&](const Suppliers& sl) {
 		return sl.SupplierId == SupplierId;
 	});
         return it;
 }
+
+// Function "DeleteSupplierById" Delete Supplier with its ID in the Supplier list.
 void SuppliersData::DeleteSupplierById(int SupplierId){
     _data.erase(GetSupplierById(SupplierId));
 }
