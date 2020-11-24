@@ -62,6 +62,7 @@
 #include "../BusinessObject/Suppliers.h"
 #include "../DataAccess/SuppliersData.h"
 #include "StockManagement.h"
+#include "BackupRestore.h"
 
 using namespace std;
 
@@ -70,6 +71,7 @@ void loadImport();
 void loadExport();
 void loadStock();
 void loadCategory();
+void loadBackupRestore();
 void gotoXY(int, int);
 
 #endif

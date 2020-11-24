@@ -65,7 +65,7 @@ void gotoXY(int x, int y)
 *******************************************************************************/
 void loadMainScreen() {
     int idx1 = 1;
-    while(idx1 != 5)
+    while(idx1 != 6)
     {
 
     cout << endl << "Started application" << endl;
@@ -74,12 +74,13 @@ void loadMainScreen() {
     cout << "2. Export Management" << endl;
     cout << "3. Stock Management" << endl;
     cout << "4. Category Management" << endl;
-    cout << "5. Exit" << endl;
+    cout << "5. Backup and Restore" << endl;
+    cout << "6. Exit" << endl;
 
     do {
         cout << endl << "You choose: ";
         cin >> idx1;
-    } while (idx1 < 1 || idx1 > 5);
+    } while (idx1 < 1 || idx1 > 6);
     
 
     switch(idx1) {
@@ -91,7 +92,8 @@ void loadMainScreen() {
                 break;
         case 4: loadCategory();
                 break;
-        
+        case 5: loadBackupRestore();
+                break;    
     };
     }
 }
@@ -454,6 +456,35 @@ void loadCategory()
         //Cho nhin thay
         break;
     }
+    }
+}
+void loadBackupRestore(){
+     int id = 1;
+    while(id != 3){
+
+        cout << endl << "BACKUP AND RESTORE" << endl;
+        cout << endl << "Please choose what you want:" << endl << endl;
+        cout << "1. Backup" << endl;
+        cout << "2. Restore" << endl;
+        cout << "3. Exit" << endl;
+
+        do {
+            cout << endl << "You choose: ";
+            cin >> id;
+        } while (id < 1 || id > 3);
+
+        switch(id) {
+            case 1:
+                    Backup();
+                    system("pause");
+                    system("cls");
+                    break;
+            case 2: 
+                    Restore();
+                    system("pause");
+                    system("cls");
+                    break;
+                 }
     }
 }
 /*******************************************************************************
