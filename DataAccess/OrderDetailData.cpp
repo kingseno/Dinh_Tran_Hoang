@@ -176,5 +176,47 @@ int OrderDetailData::exportToFile(string filename) {
 }   
 
 /*******************************************************************************
+** Function Name         : exportToFile
+**
+** Description           : Import Product with OrderDetailId
+**
+** Author                : Dinh Pham
+*******************************************************************************/
+void OrderDetailData::importProductByOrderId(int orderDetailId) {
+    vector<OrderDetails>::iterator orderDetailData;
+
+    /* Find the orderDetailData by ID in the orderDetailData list */
+    orderDetailData = find_if(orderDetailList.begin(), orderDetailList.end(), 
+    [=] (OrderDetails& orderDetailDataIdInList) {
+        return orderDetailId == orderDetailDataIdInList.m_OrderDetailId;
+    });
+
+    orderDetailData->m_Quantity += orderDetailData->m_Quantity;
+
+    clog << "Imported Product with the Order:" << endl;
+    clog << "Order Detail ID: " << orderDetailData->m_OrderDetailId << endl;
+    clog << "Order ID: " << orderDetailData->m_OrderId << endl;
+    clog << "Product ID: " << orderDetailData->m_ProductId << endl;
+    clog << "Quantity: " << orderDetailData->m_Quantity << endl;
+}
+
+/*******************************************************************************
+** Function Name         : exportToFile
+**
+** Description           : print information of product when finding with 
+**                         orderDetailId
+**
+** Author                : Dinh Pham
+*******************************************************************************/
+void OrderDetailData::printOrderDetail(int orderDetailId) {
+    vector<OrderDetails>::iterator orderDetailData =
+    getOrderDetailById(orderDetailId);
+
+    clog << "Order Detail ID: " << orderDetailData->m_OrderDetailId << endl;
+    clog << "Order ID: " << orderDetailData->m_OrderId << endl;
+    clog << "Product ID: " << orderDetailData->m_ProductId << endl;
+    clog << "Quantity: " << orderDetailData->m_Quantity << endl;
+}
+/*******************************************************************************
 **                          End Of File                                       **
 *******************************************************************************/

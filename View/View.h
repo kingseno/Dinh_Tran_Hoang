@@ -47,7 +47,9 @@
 #include <fstream>
 /* To use class Products in this file */
 #include "../DataAccess/ProductData.h"
+#include "../DataAccess/OrderDetailData.h"
 #include "../BusinessObject/Products.h"
+#include "StockManagement.h"
 
 using namespace std;
 

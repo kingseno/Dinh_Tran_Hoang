@@ -1,14 +1,16 @@
 #include <iostream>
 #include "BusinessObject/Products.h"
 #include "DataAccess/ProductData.h"
+#include "DataAccess/OrderDetailData.h"
 #include "View/View.h"
 
 using namespace std;
 
-ProductData productData("productData.json");
+ProductData productData("./DataBase/Products.json");
+OrderDetailData orderDetailData("./DataBase/OrderDetails.json");
 
 void read_products_from_file(){
-	ProductData productsData("productData.json");
+	ProductData productsData("./DataBase/Products.json");
 	for (int i = 0; i < productsData.getSize(); i++) {
 		Products p = productsData.getProductByOrder(i);
 		cout << p.toString() << endl;
@@ -28,7 +30,7 @@ int main() {
     
     // productData.deleteProductById(1);
     // productData.exportToFile("pretty.json");
-    read_products_from_file();
+    // read_products_from_file();
     loadMainScreen();
     
     return 0;

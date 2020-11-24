@@ -68,6 +68,8 @@ public:
     void updateOrderDetail(int orderDetailId, const OrderDetails& updateOrderDetail);
     int getSize();
     int exportToFile(string fileName);
+    void importProductByOrderId(int orderDetailId);
+    void printOrderDetail(int orderDetailId);
 };
 
 #endif

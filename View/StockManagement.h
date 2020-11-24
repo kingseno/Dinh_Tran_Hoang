@@ -7,9 +7,9 @@
 #include <time.h> 
 #include <iomanip>
 #include <stdlib.h>
-#include "..\DataAccess\OrdersData.h"
-#include "..\DataAccess\OrderDetailData.h"
-#include "..\DataAccess\ProductData.h"
+#include "../DataAccess/OrdersData.h"
+#include "../DataAccess/OrderDetailData.h"
+#include "../DataAccess/ProductData.h"
 using namespace std;
 class StockManagement{
 private:

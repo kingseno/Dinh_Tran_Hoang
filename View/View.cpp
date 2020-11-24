@@ -36,6 +36,7 @@
 **                      Global Data                                           **
 *******************************************************************************/
 extern ProductData productData;
+extern OrderDetailData orderDetailData;
 /*******************************************************************************
 **                      Function Definitions                                  **
 *******************************************************************************/
@@ -54,7 +55,7 @@ void loadMainScreen() {
     cout << endl << "Please choose what you want:" << endl << endl;
     cout << "1. Import Management" << endl;
     cout << "2. Export Management" << endl;
-    cout << "3. Remaining Stock Management" << endl;
+    cout << "3. Stock Management" << endl;
     cout << "4. Category Management" << endl;
 
     do {
@@ -84,27 +85,39 @@ void loadMainScreen() {
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadImport() {
-    int productId, supplierId, categoryId;
-    double price;
-    string productName, unit;
-    cout << "Please type Product ID: ";
-    cin >> productId;
-    cout << "Please type Product Name: ";
-    cin >> productName;
-    cout << "Please type Supplier ID: ";
-    cin >> supplierId;
-    cout << "Please type Category ID: ";
-    cin >> categoryId;
-    cout << "Please type Unit: ";
-    cin >> unit;
-    cout << "Please type Price: ";
-    cin >> price;
+    int orderDetailId;
 
-    Products product(productId, productName, supplierId,
-                categoryId, unit, price);
-    productData.addProduct(product);
+    int idx11;
 
-    productData.exportToFile("productData.json");
+    cout << "1. Import Product by Order Detail ID" << endl;
+    cout << "2: Find Product" << endl;
+    cout << "You choose: ";
+    cin >> idx11;
+
+    if (idx11 == 1) {
+        cout << "Please type Order Detail ID" << endl;
+        cout << "Typing: ";
+        cin >> orderDetailId;
+        orderDetailData.importProductByOrderId(orderDetailId);
+        orderDetailData.exportToFile("./DataBase/OrderDetails.json");
+    } else if (idx11 == 2) {
+        cout << "1. Find Product by Order Detail ID" << endl;
+        cout << "2. Find Product by Product ID" << endl;
+        cout << "3. Find Product by Supplier ID" << endl;
+        cout << "4. Find Product by Price" << endl;
+        cout << "You choose: ";
+
+        int idx12;
+        cin >> idx12;
+        if (idx12 == 1) {
+            cout << "Please type Order Detail ID" << endl;
+            cout << "Typing: ";
+            int orderDetailId;
+            cin >> orderDetailId;
+            orderDetailData.printOrderDetail(orderDetailId);
+        } 
+    }
+    
 }
 
 /*******************************************************************************
@@ -115,7 +128,7 @@ void loadImport() {
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadExport() {
-
+    
 }
 
 /*******************************************************************************
@@ -126,7 +139,8 @@ void loadExport() {
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadStock() {
-
+    StockManagement stockManagement;
+    stockManagement.Display();
 }
 
 
