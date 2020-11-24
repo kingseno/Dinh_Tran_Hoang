@@ -22,9 +22,7 @@ private:
     void Inventory();
 public:
     StockManagement();
-    void Display();
-
-    
+    void Display(); 
 };
 
 #endif

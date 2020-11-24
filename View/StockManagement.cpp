@@ -82,7 +82,7 @@ void StockManagement::ExportImport(){
     getline(cin, daybegin);
     cout << "to day (yyyy-mm-dd): ";
     getline(cin, dayend);
-    cout << endl << left << setw(12) << "DATE" << setw(9) << "OrderID"<< setw(11) << "ProductID" << setw(35) << "PRODUCT NAME" << setw(9) << "IMPORT" << setw(9) << "EXPORT" << "PRICE" << endl << endl ;
+    cout << endl << left << setw(12) << "DATE" << setw(9) << "OrderID" << setw(11) << "ProductID" << setw(35) << "PRODUCT NAME" << setw(9) << "IMPORT" << setw(9) << "EXPORT" << setw(9) << "PRICE" << setw(9) << "MONEY" << endl << endl ;
     for(int i = 0; i<OrderDate.size(); i++){
         if(CompareTime(OrderDate.at(i),daybegin)==1 && CompareTime(dayend, OrderDate.at(i))==1 )
         {
@@ -94,8 +94,8 @@ void StockManagement::ExportImport(){
                 if(OrderIdOrderDetails.at(j) == OrderIdOrders.at(i) )
                 {
                     cout << left << setw(12) << OrderDate.at(i) << setw(9) << OrderIdOrders.at(i)<< setw(11) << ProductIdProducts.at(index) << setw(35) << ProductName.at(index) << setw(9);
-                    if (Quantity.at(j) > 0) cout << Quantity.at(j) << setw(9) << "-" << setw(9) << Price.at(index)*Quantity.at(j) << endl;
-                    else cout << "-" << setw(9) << -Quantity.at(j) << setw(9) << -Price.at(index)*Quantity.at(j) << endl;
+                    if (Quantity.at(j) > 0) cout << Quantity.at(j) << setw(9) << "-" << setw(9)<< Price.at(index) << setw(9) << Price.at(index)*Quantity.at(j) << endl;
+                    else cout << "-" << setw(9) << -Quantity.at(j) << setw(9) << Price.at(index) << setw(9) << -Price.at(index)*Quantity.at(j) << endl;
                 }
             }
         }
@@ -119,7 +119,7 @@ void StockManagement::Inventory(){
     getline(cin, daybegin);
     cout << "to day (yyyy-mm-dd): ";
     getline(cin, dayend);
-    cout << endl << left << setw(11) << "ProductID" << setw(35) << "ProductName" << setw(9) << "IMPORT" << setw(9) << "EXPORT" << setw(11) << "INVENTORY"<< setw(9)<< "PRICE" << endl << endl ;
+    cout << endl << left << setw(11) << "ProductID" << setw(35) << "ProductName" << setw(9) << "IMPORT" << setw(9) << "EXPORT" << setw(11) << "INVENTORY"<< setw(9)<< "PRICE"<< setw(15) << "MoneyInventory" << endl << endl ;
     for(int i = 0; i<OrderDate.size(); i++){
         if(CompareTime(OrderDate.at(i),daybegin)==1 && CompareTime(dayend, OrderDate.at(i))==1 )
         {
@@ -149,7 +149,8 @@ void StockManagement::Inventory(){
         SumImport = SumImport + ProductImport.at(i)*Price.at(i);
         if(ProductExport.at(i) != 0 || ProductImport.at(i) != 0)
             cout << left << setw(11) << ProductIdProducts.at(i) << setw(35) << ProductName.at(i)<< setw(9) << ProductImport.at(i) << setw(9) << -ProductExport.at(i) 
-                        << setw(11) << ProductExport.at(i) + ProductImport.at(i) << setw(9) <<(ProductExport.at(i) + ProductImport.at(i))*Price.at(i) << endl;
+                        << setw(11) << ProductExport.at(i) + ProductImport.at(i) << setw(9) << Price.at(i)
+                        << setw(9) <<(ProductExport.at(i) + ProductImport.at(i))*Price.at(i) << endl;
     }
 
     cout << "Total amount EXPOR: " << -SumExport << endl;
