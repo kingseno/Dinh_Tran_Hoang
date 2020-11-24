@@ -8,6 +8,7 @@
 #include "StockManagement.h"
 // This is the constructor to load data list from data json file
 StockManagement::StockManagement(){
+    system("cls");
     OrdersData Orders("..\\DataBase\\Orders.json");
     OrderDetailData OrderDetails("..\\DataBase\\OrderDetails.json");
     ProductData Products("..\\DataBase\\Products.json");
@@ -76,7 +77,7 @@ int StockManagement::CompareTime(string st1, string st2){
 void StockManagement::ExportImport(){
     string daybegin, dayend;
     cout << "Enter the goods inspection time: " << endl;
-    cout << "From day (yyy-mm-dd): ";
+    cout << "From day (yyyy-mm-dd): ";
     cin.ignore();
     getline(cin, daybegin);
     cout << "to day (yyyy-mm-dd): ";
