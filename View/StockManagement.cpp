@@ -1,4 +1,12 @@
+/** @file StockManagement.cpp
+ *  @brief The class creates objects that store data to stock management
+ *
+ *  @author Nguyen Manh Hoang
+ *  @bug No known bugs.
+ */
+
 #include "StockManagement.h"
+// This is the constructor to load data list from data json file
 StockManagement::StockManagement(){
     OrdersData Orders("..\\DataBase\\Orders.json");
     OrderDetailData OrderDetails("..\\DataBase\\OrderDetails.json");
@@ -19,6 +27,12 @@ StockManagement::StockManagement(){
         Price.push_back(Products.getProductByOrder(i).m_Price);
     }
 }
+
+/** @brief Function converts string to time.
+ *  
+ *  Function converts string to time.
+ *  @return time_t of string;
+ */
 
 time_t StockManagement::String2Time(string t)
 {
@@ -42,11 +56,22 @@ time_t StockManagement::String2Time(string t)
 
     return tStart;
 }
+/** @brief Function compare time.
+ *  
+ *  Function compare time.
+ *  @return 1 if time first >= time later else return 0;
+ */
 int StockManagement::CompareTime(string st1, string st2){
 	time_t time1 = String2Time(st1);
 	time_t time2 = String2Time(st2);
     return difftime(time1,time2) >= 0.0 ? 1 : 0; 
 }
+
+/** @brief Function "ExportImport" to synthesize the import and export arising in the period.
+ *  
+ *  Function "ExportImport" to synthesize the import and export arising in the period.
+ *  @return void.
+ */
 
 void StockManagement::ExportImport(){
     string daybegin, dayend;
@@ -76,6 +101,12 @@ void StockManagement::ExportImport(){
 
     }
 }
+
+/** @brief Function "Inventory()" to synthesize inventory in the period.
+ *  
+ *  Function "Inventory()" to synthesize inventory in the period.
+ *  @return void.
+ */
 
 void StockManagement::Inventory(){
     vector<int> ProductExport(ProductIdProducts.size());
@@ -126,6 +157,12 @@ void StockManagement::Inventory(){
 
 
 }
+
+/** @brief Function "Display()" to select and display information import, export and inventory by the time.
+ *  
+ *  Function "Display()" to select and display information import, export and inventory by the time.
+ *  @return void.
+ */
 
 void StockManagement::Display(){
     int id = 1;
