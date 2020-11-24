@@ -113,7 +113,7 @@ void StockManagement::Inventory(){
     vector<int> ProductImport(ProductIdProducts.size());
     string daybegin, dayend;
     cout << "Enter the goods inspection time: " << endl;
-    cout << "From day (yyy-mm-dd): ";
+    cout << "From day (yyyy-mm-dd): ";
     cin.ignore();
     getline(cin, daybegin);
     cout << "to day (yyyy-mm-dd): ";

@@ -49,7 +49,9 @@ extern OrderDetailData orderDetailData;
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadMainScreen() {
-    int idx1 = 0;
+    int idx1 = 1;
+    while(idx1 != 5)
+    {
 
     cout << endl << "Started application" << endl;
     cout << endl << "Please choose what you want:" << endl << endl;
@@ -57,11 +59,12 @@ void loadMainScreen() {
     cout << "2. Export Management" << endl;
     cout << "3. Stock Management" << endl;
     cout << "4. Category Management" << endl;
+    cout << "5. Exit" << endl;
 
     do {
         cout << endl << "You choose: ";
         cin >> idx1;
-    } while (idx1 < 1 || idx1 > 4);
+    } while (idx1 < 1 || idx1 > 5);
     
 
     switch(idx1) {
@@ -73,8 +76,9 @@ void loadMainScreen() {
                 break;
         case 4: loadCategory();
                 break;
-        default: cout << "Never have this case";
+        
     };
+    }
 }
 
 /*******************************************************************************
