@@ -105,12 +105,12 @@ void loadMainScreen() {
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadImport() {
-    OrdersData ordersData("./DataBase/Orders.json");
-    OrderDetailData orderDetailData("./DataBase/OrderDetails.json");
-    CustomersData customerData("./DataBase/Customers.json");
-    EmployeesData employeeData("./DataBase/Employees.json");
-    ShippersData shipperData("./DataBase/Shippers.json");
-    ProductData productData("./DataBase/Products.json");
+    OrdersData ordersData("../DataBase/Orders.json");
+    OrderDetailData orderDetailData("../DataBase/OrderDetails.json");
+    CustomersData customerData("../DataBase/Customers.json");
+    EmployeesData employeeData("../DataBase/Employees.json");
+    ShippersData shipperData("../DataBase/Shippers.json");
+    ProductData productData("../DataBase/Products.json");
 
     int customerId, employeeId, shipperId, productId, quantity;
     string orderDate;
@@ -148,7 +148,7 @@ void loadImport() {
         /* Push new order into database */
         Orders order(ordersData.GetSize() + 10248, customerId, employeeId, orderDate, shipperId);
         ordersData.PushBack(order);
-        ordersData.ExportToFile("./DataBase/Orders.json");
+        ordersData.ExportToFile("../DataBase/Orders.json");
 
         cout << endl << "Type Order Detail ID for Order ID " +  to_string(ordersData.GetSize() + 10248 - 1) << endl;
 
@@ -172,7 +172,7 @@ void loadImport() {
             cin >> idx112;
             
         } while (idx112 == 'Y' || idx112 == 'y');
-        orderDetailData.exportToFile("./DataBase/OrderDetails.json");
+        orderDetailData.exportToFile("../DataBase/OrderDetails.json");
 
     } else if (idx11 == 2) {
         cout << "1. Find Product by Order Detail ID" << endl;

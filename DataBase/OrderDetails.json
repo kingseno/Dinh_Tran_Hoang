@@ -527,3 +527,5 @@
 {"orderDetailId":527,"orderId":10452,"productId":26,"quantity":-1}
 {"orderDetailId":528,"orderId":10453,"productId":30,"quantity":-3}
 {"orderDetailId":529,"orderId":10455,"productId":8,"quantity":-100}
+{"orderDetailId":530,"orderId":10457,"productId":1,"quantity":10}
+{"orderDetailId":531,"orderId":10457,"productId":1,"quantity":1}
