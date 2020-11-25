@@ -35,8 +35,7 @@
 /*******************************************************************************
 **                      Global Data                                           **
 *******************************************************************************/
-extern ProductData productData;
-extern OrderDetailData orderDetailData;
+
 /*******************************************************************************
 **                      Function Definitions                                  **
 *******************************************************************************/
@@ -106,21 +105,75 @@ void loadMainScreen() {
 ** Author                : Dinh Pham
 *******************************************************************************/
 void loadImport() {
-    int orderDetailId;
+    OrdersData ordersData("./DataBase/Orders.json");
+    OrderDetailData orderDetailData("./DataBase/OrderDetails.json");
+    CustomersData customerData("./DataBase/Customers.json");
+    EmployeesData employeeData("./DataBase/Employees.json");
+    ShippersData shipperData("./DataBase/Shippers.json");
+    ProductData productData("./DataBase/Products.json");
 
+    int customerId, employeeId, shipperId, productId, quantity;
+    string orderDate;
+    
     int idx11;
+    char idx112;
 
-    cout << "1. Import Product by Order Detail ID" << endl;
+    cout << "1. Import Product by Import Order" << endl;
     cout << "2: Find Product" << endl;
     cout << "You choose: ";
     cin >> idx11;
 
     if (idx11 == 1) {
-        cout << "Please type Order Detail ID" << endl;
-        cout << "Typing: ";
-        cin >> orderDetailId;
-        orderDetailData.importProductByOrderId(orderDetailId);
-        orderDetailData.exportToFile("../DataBase/OrderDetails.json");
+        /* Enter Import Product by Import Order */
+        cout << "Please type Customer ID(1 to 91): ";
+        cin >> customerId;
+        /* Show customer name for staff can verify information */
+        vector<Customers>::iterator customer = customerData.GetCustomerById(customerId);
+        cout << "Customer name: " + customer->CustomerName << endl;
+
+        cout << "Please type Employee ID(1 to 10): ";
+        cin >> employeeId;
+        /* Show employee name for staff can verify information */
+        Employees* employee = employeeData.GetPointer(employeeId);
+        cout << "Employee name: " + employee->FirstName << endl;
+
+        cout << "Please type Order Date(yyyy-mm-dd): ";
+        cin >> orderDate;
+        cout << "Please type Shipper ID(1 to 3): ";
+        cin >> shipperId;
+        /* Show shipper name for staff can verify information */
+        Shippers* shipper = shipperData.GetPointer(shipperId);
+        cout << "Shipper name: " + shipper->ShipperName << endl;
+
+        /* Push new order into database */
+        Orders order(ordersData.GetSize() + 10248, customerId, employeeId, orderDate, shipperId);
+        ordersData.PushBack(order);
+        ordersData.ExportToFile("./DataBase/Orders.json");
+
+        cout << endl << "Type Order Detail ID for Order ID " +  to_string(ordersData.GetSize() + 10248 - 1) << endl;
+
+        do {
+            cout << "Please type Product ID(1 to 77): ";
+            cin >> productId;
+            /* Show product name for staff can verify information */
+            vector<Products>::iterator product = productData.getProductById(productId);
+            cout << "Product name: " + product->m_ProductName << endl;
+
+            cout << "Please type Quantity: ";
+            cin >> quantity;
+            
+            /* Push new order detail into database */
+            OrderDetails orderDetail(orderDetailData.getSize() + 1, 
+            ordersData.GetSize() + 10248 - 1,
+            productId, quantity);
+
+            orderDetailData.addOrderDetail(orderDetail);
+            cout << "Continue typing ? Y(yes)/N(no): ";
+            cin >> idx112;
+            
+        } while (idx112 == 'Y' || idx112 == 'y');
+        orderDetailData.exportToFile("./DataBase/OrderDetails.json");
+
     } else if (idx11 == 2) {
         cout << "1. Find Product by Order Detail ID" << endl;
         cout << "2. Find Product by Product ID" << endl;

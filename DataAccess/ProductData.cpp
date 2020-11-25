@@ -111,11 +111,11 @@ vector<Products>::iterator ProductData::getProductById(int productId) {
         return productId == productIdInList.m_ProductId;
     });
 
-    if (product != productList.end()) {
-        clog << "Found a Product" << endl;
-    } else {
-        clog << "This Product doesn't exist" << endl;
-    }
+    // if (product != productList.end()) {
+    //     clog << "Found a Product" << endl;
+    // } else {
+    //     clog << "This Product doesn't exist" << endl;
+    // }
 
     return product;
 }

@@ -7,9 +7,6 @@
 
 using namespace std;
 
-ProductData productData("../DataBase/Products.json");
-OrderDetailData orderDetailData("../DataBase/OrderDetails.json");
-
 void read_products_from_file(){
 	ProductData productsData("../DataBase/Products.json");
 	for (int i = 0; i < productsData.getSize(); i++) {

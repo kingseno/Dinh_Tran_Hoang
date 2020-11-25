@@ -61,6 +61,10 @@
 #include "../DataAccess/CustomersData.h"
 #include "../BusinessObject/Suppliers.h"
 #include "../DataAccess/SuppliersData.h"
+#include "../BusinessObject/Employees.h"
+#include "../DataAccess/EmployeesData.h"
+#include "../BusinessObject/Shippers.h"
+#include "../DataAccess/ShippersData.h"
 #include "StockManagement.h"
 #include "BackupRestore.h"
 
