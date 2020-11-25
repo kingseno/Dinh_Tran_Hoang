@@ -526,6 +526,10 @@
 {"orderDetailId":526,"orderId":10451,"productId":23,"quantity":-2}
 {"orderDetailId":527,"orderId":10452,"productId":26,"quantity":-1}
 {"orderDetailId":528,"orderId":10453,"productId":30,"quantity":-3}
-{"orderDetailId":529,"orderId":10455,"productId":8,"quantity":-100}
-{"orderDetailId":530,"orderId":10457,"productId":1,"quantity":10}
-{"orderDetailId":531,"orderId":10457,"productId":1,"quantity":1}
+{"orderDetailId":529,"orderId":10455,"productId":8,"quantity":100}
+{"orderDetailId":530,"orderId":10457,"productId":1,"quantity":-10}
+{"orderDetailId":531,"orderId":10457,"productId":1,"quantity":-1}
+{"orderDetailId":532,"orderId":10458,"productId":1,"quantity":-1}
+{"orderDetailId":533,"orderId":10459,"productId":3,"quantity":-1}
+{"orderDetailId":534,"orderId":10460,"productId":1,"quantity":-2}
+{"orderDetailId":535,"orderId":10460,"productId":3,"quantity":-1}

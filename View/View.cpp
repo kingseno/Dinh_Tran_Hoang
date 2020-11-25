@@ -207,102 +207,113 @@ void loadExport()
     cout << "**************************************************************\n";
     cout << "*                         LOAD EXPORT                        *\n";
     cout << "**************************************************************\n\n";
-    cout << "**************************************************************\n";
-    cout << "*                 1. Take New Product Order                  *\n";
-    cout << "*                 2. Display List of Order                   *\n";
-    cout << "*                 3. Go to Main Screen                       *\n";
-    cout << "**************************************************************\n";
 
-    //Type the choice
-    int choice = 0;
-    do
-    {
-        cout << "Please Enter choice: ";
-        cin >> choice;
-    } while (choice > 3 || choice < 1);
-    switch (choice)
-    {
-    case 1:
-    {
-        /*Insert new order*/
-        cout << "You choice New Product Order\n"
-             << endl;
-        cout << "--------------------------------------------------------------\n";
-        int orderdetail_id, order_id, product_id, quantity;
-        int customer_id, employee_id, shipper_id;
-        string order_date;
-        cout << "Enter ProductID (ProductId is in range 1 - 77): ";
-        cin >> product_id;
-        cin.sync();
-        cout << "Enter CustomerID (CustomerId is in range 1 - 91):  ";
+    /*Insert new order*/
+    int orderdetail_id, order_id, product_id, quantity;
+    int customer_id, employee_id, shipper_id;
+    string order_date;
+    string customer_name, contact_name, address, city, postal_code, country;
+
+    ProductData product_data("../DataBase/Products.json");
+    CustomersData customer_data("../DataBase/Customers.json");
+    ShippersData shipper_data("../DataBase/Shippers.json");
+    EmployeesData employee_data("../DataBase/Employees.json");
+    OrderDetailData order_detail_data("../DataBase/OrderDetails.json");
+    OrdersData order_data("../DataBase/Orders.json");
+
+    cout << "*****************You choice New Product Order*****************\n";
+    cout << "--------------------------------------------------------------\n";
+
+    char newcustomer = {0};
+    cout << "This is New Customer (Press y: new customer, n: old customer)\n";
+    cin >> newcustomer; cin.sync();
+    if (newcustomer == 'n'){
+        /*This is old customer*/
+
+        //Type Customer Id
+        cout << "Enter CustomerID (CustomerId is in range 1 - " << customer_data.GetSize() << "): ";
         cin >> customer_id;
         cin.sync();
-        cout << "Enter Date (format yyyy-mm-dd): ";
-        cin >> order_date;
+        //Display Customer Id convert to customer name
+        Customers cus = customer_data.Get(customer_id - 1);
+        cout << "Customer Name: " << cus.CustomerName << endl;
+    }else if (newcustomer == 'y'){
+        /*This is New Customer and Save information about new customer*/
+
+        customer_id = customer_data.GetSize() + 1;
+        cout << "Enter Customer Name: ";getline(cin, customer_name); cin.sync();
+        cout << "Enter Contact Name: ";getline(cin, contact_name); cin.sync();
+        cout << "Enter Address: ";getline(cin, address); cin.sync();
+        cout << "Enter City: ";getline(cin, city); cin.sync();
+        cout << "Enter PostalCode: ";getline(cin, postal_code); cin.sync();
+        cout << "Enter Country: ";getline(cin, country); cin.sync();
+
+        Customers cus(customer_id, customer_name, contact_name, address, city, postal_code, country);
+        customer_data.PushBack(cus);
+        if (customer_data.ExportToFile("../DataBase/Customers.json")){
+            cout << "Save information success\n";
+        }else{
+            cout << "Falt!!!\n";
+        }
+    }
+
+    //Date Order
+    cout << "Enter Date (format yyyy-mm-dd): ";
+    cin >> order_date;
+    cin.sync();
+
+    //Shipper Id
+    cout << "Enter ShipperId (CustomerId is in range 1 - " << shipper_data.GetSize() << "): ";
+    cin >> shipper_id;
+    cin.sync();
+    //Display Shipper id convert to Shipper name
+    Shippers sh = shipper_data.Get(shipper_id - 1);
+    cout << "Shipper Name: " << sh.ShipperName << endl;
+
+    //Employee Id
+    cout << "Enter EmployeeId (EmployeeId is in range 1 - " << employee_data.GetSize() << "): ";
+    cin >> employee_id;
+    cin.sync();
+    //Display employeeid convert to employee name
+    Employees em = employee_data.Get(employee_id - 1);
+    cout << "Employee Name: " << em.FirstName << endl;
+
+    //Add new value in to object order
+    order_id = 10248 + order_data.GetSize();
+    Orders order(order_id, customer_id, employee_id, order_date, shipper_id);
+    order_data.PushBack(order);
+
+    //Number of product customer want to buy
+    cout << "How many type of product ?\n";
+    int number_product = 0;
+    cin >> number_product;
+    for (int i = 0; i < number_product; i++)
+    {
+        cout << "Enter ProductID (ProductId is in range 1 - " << product_data.getSize() << "): ";
+        cin >> product_id;
         cin.sync();
-        cout << "How many Product would you like to order: ";
+        vector<Products>::iterator p = product_data.getProductById(product_id);
+        cout << "Product Name: " << p[0].m_ProductName << endl;
+
+        cout << "Quantity of this product ? ";
         cin >> quantity;
         cin.sync();
 
-        //Confirm to save data
-        char savedata = {0};
-        cout << "Are you want to save this choice!!\n";
-        cout << "(Please choice y: yes or n: no)\n";
-        cin >> savedata;
-        if (savedata == 'y')
-        {
-            //Save to Orders.json file
-            OrdersData order_data("../DataBase/Orders.json");
-            order_id = 10248 + order_data.GetSize();
-
-            //random employee_id and shipper_id
-            srand(time(0));
-            employee_id = 1 + rand() % 10;
-            srand(time(0));
-            shipper_id = 1 + rand() % 3;
-            Orders order(order_id, customer_id, employee_id, order_date, shipper_id);
-            order_data.PushBack(order);
-            order_data.ExportToFile("../DataBase/Orders.json");
-
-            //Save to OrderDetail.json file
-            OrderDetailData order_detail_data("../DataBase/OrderDetails.json");
-            orderdetail_id = order_detail_data.getSize() + 1;
-            if (quantity > 0)
-                quantity = -quantity;
-            OrderDetails order_detail(orderdetail_id, order_id, product_id, quantity);
-            order_detail_data.addOrderDetail(order_detail);
-            order_detail_data.exportToFile("../DataBase/OrderDetails.json");
-
-            //Display the receipt
-
-            //Product id convert to product name
-            ProductData product_data("../DataBase/Products.json");
-            vector<Products>::iterator p = product_data.getProductById(product_id);
-            //Customer id convert to customer name
-            CustomersData customer_data("../DataBase/Customers.json");
-            Customers cus = customer_data.Get(customer_id);
-
-            cout << "**************************************************************\n";
-            cout << "*                 DISPLAY THE RECEIPT EXPORT                 *\n";
-            cout << "*                                                            *\n";
-            cout << "**************************************************************\n";
-            cout << "Customer Name: " << cus.ContactName << endl;
-            cout << "Product Name: " << p[0].m_ProductName << endl;
-            cout << "Quantity: " << -quantity << endl;
-            cout << "Order Date: " << order_date << endl;
-            cout << "**************************************************************\n";
-        }
-        break;
+        orderdetail_id = order_detail_data.getSize() + 1;
+        if (quantity > 0) quantity = -quantity;
+        OrderDetails order_detail(orderdetail_id, order_id, product_id, quantity);
+        order_detail_data.addOrderDetail(order_detail);
     }
-
-    case 2:
+    //Confirm to save data
+    char savedata = {0};
+    cout << "Are you want to save this choice!!\n";
+    cout << "(Please choice y: yes or n: no)\n";
+    cin >> savedata;
+    if (savedata == 'y')
     {
-        break;
-    }
-    case 3:
-    {
-        break;
-    }
+        //Save data to file
+        order_detail_data.exportToFile("../DataBase/OrderDetails.json");
+        order_data.ExportToFile("../DataBase/Orders.json");
     }
 }
 
@@ -333,7 +344,6 @@ void loadStock() {
 **
 ** Author                : Bao Tran
 *******************************************************************************/
-
 void loadCategory()
 {
     system("cls");
@@ -344,12 +354,11 @@ void loadCategory()
     cout << "*         1. Update List of Suppliers                    *\n";
     cout << "*         2. Add New Suppliers                           *\n";
     cout << "*         3. Delete Suppliers by Id                      *\n";
-    cout << "*         4. Display List of Suppliers                   *\n";
-    cout << "*         5. Update List of Category                     *\n";
-    cout << "*         6. Add New Category                            *\n";
-    cout << "*         7. Delete Category at Id                       *\n";
+    cout << "*         4. Update List of Category                     *\n";
+    cout << "*         5. Add New Category                            *\n";
+    cout << "*         6. Delete Category at Id                       *\n";
+    cout << "*         7. Display List of Suppliers                   *\n";
     cout << "*         8. Display List of Category                    *\n";
-    cout << "*         9. Go to Main Screen                           *\n";
     cout << "**********************************************************\n";
 
     int choice = 0;
@@ -357,12 +366,13 @@ void loadCategory()
     {
         cout << "Please Enter choice: ";
         cin >> choice;
-    } while (choice > 8 || choice < 1);
+    } while (choice > 13 || choice < 1);
 
     switch (choice)
     {
     case 1:
     {
+        /*Update list of Suppliers*/
         int supplierid;
         string suppliername, contactname, address, city, postalcode, country, phone;
         SuppliersData supplydata("../DataBase/Suppliers.json");
@@ -371,80 +381,65 @@ void loadCategory()
         //Check the Id can found
         do
         {
-            cout << "Type Suppliers ID (Suppliers ID is in range 1 - " << supplydata.GetSize() << " )";
+            cout << "Type Suppliers ID (Suppliers ID is in range 1 - " << supplydata.GetSize() << ")";
             cin >> supplierid;
         } while (supplierid > supplydata.GetSize());
-        cin.sync(); //delete buffer memory
+        //delete buffer memory
+        cin.sync(); 
         cout << "Type Supplier Name: ";getline(cin, suppliername);cin.sync();
         cout << "Type Contact Name: ";getline(cin, contactname);cin.sync();
         cout << "Type Address: ";getline(cin, address);cin.sync();
         cout << "Type City: ";getline(cin, city);cin.sync();
         cout << "Type PostalCode: ";getline(cin, postalcode);cin.sync();
-        cout << "Type Country: ";getline(cin, country); cin.sync();
-        cout << "Type Phone: ";getline(cin, phone);cin.sync();
+        cout << "Type Country: ";getline(cin, country);cin.sync();
+        cout << "Type Phone: ";getline(cin, phone); cin.sync();
 
         Suppliers su(supplierid, suppliername, contactname, address, city, postalcode, country, phone);
         supplydata.Update(supplierid - 1, su);
         if (supplydata.ExportToFile("../DataBase/Suppliers.json") == 1)
         {
             cout << "Update Suseccfull\n";
-        }
-        else
-        {
+        }else{
             cout << "Fail\n";
         }
         break;
     }
     case 2:
     {
+        /*Add New Suppliers*/
         int supplierid;
         string suppliername, contactname, address, city, postalcode, country, phone;
         SuppliersData supplydata("../DataBase/Suppliers.json");
         cout << "You choice Add New Suppliers \n";
         supplierid = supplydata.GetSize() + 1;
         cin.sync();
-        cout << "Type Supplier Name: ";
-        getline(cin, suppliername);
-        cin.sync();
-        cout << "Type Contact Name: ";
-        getline(cin, contactname);
-        cin.sync();
-        cout << "Type Address: ";
-        getline(cin, address);
-        cin.sync();
-        cout << "Type City: ";
-        getline(cin, city);
-        cin.sync();
-        cout << "Type PostalCode: ";
-        getline(cin, postalcode);
-        cin.sync();
-        cout << "Type Country: ";
-        getline(cin, country);
-        cin.sync();
-        cout << "Type Phone: ";
-        getline(cin, phone);
-        cin.sync();
+        cout << "Type Supplier Name: ";getline(cin, suppliername);cin.sync();
+        cout << "Type Contact Name: ";getline(cin, contactname);cin.sync();
+        cout << "Type Address: ";getline(cin, address);cin.sync();
+        cout << "Type City: ";getline(cin, city);cin.sync();
+        cout << "Type PostalCode: ";getline(cin, postalcode);cin.sync();
+        cout << "Type Country: ";getline(cin, country);cin.sync();
+        cout << "Type Phone: ";getline(cin, phone);cin.sync();
 
         Suppliers su(supplierid, suppliername, contactname, address, city, postalcode, country, phone);
         supplydata.PushBack(su);
-        if (supplydata.ExportToFile("../DataBase/Suppliers.json") == 1)
-        {
+        if (supplydata.ExportToFile("../DataBase/Suppliers.json") == 1){
             cout << "Add Suppliers successfull\n";
         }
-        else
-        {
+        else{
             cout << "Fail\n";
         }
         break;
     }
     case 3:
     {
+        /*Delete Suppllier by ID*/
         int supplierid;
         SuppliersData supplydata("../DataBase/Suppliers.json");
         cout << "You choice Delete Suppliers by Id \n";
         do
         {
-            cout << "Type Suppliers ID which you want to delete: ";
+            cout << "Type Suppliers ID which you want to delete (Suppliers ID is in range 1 - " << supplydata.GetSize() << ")";
             cin >> supplierid;
             cin.sync();
             if (supplierid > supplydata.GetSize())
@@ -452,36 +447,113 @@ void loadCategory()
         } while (supplierid > supplydata.GetSize());
 
         supplydata.DeleteSupplierById(supplierid);
-        if (supplydata.ExportToFile("../DataBase/Suppliers.json") == 1)
-        {
+        if (supplydata.ExportToFile("../DataBase/Suppliers.json") == 1){
             cout << "Delete Suppliers Successfull!!\n";
         }
-        else
-        {
+        else{
             cout << "Fail\n";
         }
         break;
     }
     case 4:
     {
+        /*Update list of categories*/
+        cout << "You choice Update List of Suppliers \n";
+        int category_id;
+        string category_name, description;
+        CategoryData category_data("../DataBase/Categories.json");
+
+        //Check the Id can found
+        do
+        {
+            cout << "Type Suppliers ID (Suppliers ID is in range 1 - " << category_data.getSize() << ")";
+            cin >> category_id;
+        } while (category_id > category_data.getSize());
+        cin.sync();
+        cout << "Type Category Name: ";getline(cin, category_name);cin.sync();
+        cout << "Type Description: ";getline(cin, description);cin.sync();
+  
+        Categories ca(category_id, category_name, description);
+        category_data.updateCategory(category_id, ca);
+
+        if (category_data.exportToFile("../DataBase/Categories.json") == 1)
+        {
+            cout << "Update Success\n";
+        }else{
+            cout << "Fail\n";
+        }
+    }
+    break;
+    case 5:
+    {
+        /*Add New Category */
+        cout << "You choice Add New Category \n";
+        int category_id;
+        string category_name, description;
+        CategoryData category_data("../DataBase/Categories.json");
+
+        category_id = category_data.getSize() + 1;
+        cin.sync();
+        cout << "Type Category Name: ";getline(cin, category_name);cin.sync();
+        cout << "Type Description: ";getline(cin, description);cin.sync();
+
+        Categories ca(category_id, category_name, description);
+        category_data.addCategory(ca);
+        if (category_data.exportToFile("../DataBase/Categories.json") == 1){
+            cout << "Add Category successfull\n";
+        }
+        else{
+            cout << "Fail\n";
+        }
+    }
+    break;
+    case 6:
+    {
+        /*Delete Category by id*/
+        cout << "You choice Add Delete Category \n";
+        int category_id;
+        string category_name, description;
+        CategoryData category_data("../DataBase/Categories.json");
+        do
+        {
+            cout << "Type Category ID which you want to delete (Category ID is in range 1 - " << category_data.getSize() << ")";
+            cin >> category_id;
+            cin.sync();
+            if (category_id > category_data.getSize())
+                cout << "Not fount Id. Please retype!!!\n";
+        } while (category_id > category_data.getSize());
+
+        category_data.deleteCategoryById(category_id);
+        if (category_data.exportToFile("../DataBase/Categories.json")){
+            cout << "Delete Category Successfull!!\n";
+        }
+        else{
+            cout << "Fail\n";
+        }
+    }
+    break;
+    case 7:
+    {
         system("cls");
         cout << "You choice Display of Suppliers \n";
         cout << "**************************************************************************************************************\n";
         cout << "*                                            DISPLAY LIST OF SUPPLIERS                                       *\n";
         cout << "**************************************************************************************************************\n\n";
-        
-        gotoXY(0, 9);cout << "Supplier Id";
-        gotoXY(12, 9); cout << "Supplier Name";
-        gotoXY(42, 9); cout << "Contact Name";
-        gotoXY(77, 9); cout << "Address";
-        gotoXY(97, 9); cout << "City";
-        gotoXY(107, 9); cout << "Country";
-        gotoXY(117, 9); cout << "Phone\n";
+
+        gotoXY(0, 7);
+        cout << "**************************************************************************************************************\n";
+        gotoXY(0, 8);cout << "Supplier Id";
+        gotoXY(12, 8);cout << "Supplier Name";
+        gotoXY(42, 8);cout << "Contact Name";
+        gotoXY(77, 8);cout << "Address";
+        gotoXY(97, 8);cout << "City";
+        gotoXY(107, 8);cout << "Country";
+        gotoXY(117, 8);cout << "Phone\n";
         SuppliersData supplydata("../DataBase/Suppliers.json");
         for (int i = 0; i < supplydata.GetSize(); i++)
         {
             Suppliers su = supplydata.Get(i);
-            gotoXY(0, i + 10); cout << su.SupplierId << "\t";
+            gotoXY(0, i + 10);cout << su.SupplierId << "\t";
             gotoXY(12, i + 10);cout << su.SupplierName << "\t";
             gotoXY(42, i + 10);cout << su.ContactName << "\t";
             gotoXY(77, i + 10);cout << su.Address << "\t";
@@ -489,28 +561,38 @@ void loadCategory()
             gotoXY(107, i + 10);cout << su.Country << "\t";
             gotoXY(117, i + 10);cout << su.Phone << "\t\n";
         }
-        break;
+        
     }
-    case 5:
-    {
-        break;
-    }
-    case 6:
-    {
-        break;
-    }
-    case 7:
-    {
-        break;
-    }
+    break;
     case 8:
     {
-        cout << "You choice Exit => Go to main screen" << endl;
-        //Cho nhin thay
-        break;
+        system("cls");
+        cout << "You choice Display of Category \n";
+        cout << "**************************************************************************************************************\n";
+        cout << "*                                            DISPLAY LIST OF CATEGORIES                                       *\n";
+        cout << "**************************************************************************************************************\n\n";
+        gotoXY(0, 7);
+        cout << "**************************************************************************************************************\n";
+        gotoXY(0, 8);cout << "Category Id";
+        gotoXY(20, 8);cout << "Category Name";
+        gotoXY(42, 8);cout << "Description\n";
+        cout << "**************************************************************************************************************\n";
+        CategoryData category_data("../DataBase/Categories.json");
+        for (int i = 1; i < category_data.getSize(); i++)
+        {
+            vector<Categories>::iterator cate = category_data.getCategoryById(i);
+            gotoXY(0, i + 10);cout << cate[0].m_CategoryId;
+            gotoXY(20, i + 10);cout << cate[0].m_CategoryName;
+            gotoXY(42, i + 10);cout << cate[0].m_Description << endl;
+        }
     }
+    break;
+    default:
+        cout << "Never have this case";
     }
 }
+
+
 void loadBackupRestore(){
      int id = 1;
     while(id != 3){
