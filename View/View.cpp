@@ -318,11 +318,11 @@ void loadExport()
 }
 
 /*******************************************************************************
-** Function Name         : loadMainScreen
+** Function Name         : loadStock
 **
-** Description           : To load the main screen when start up application
+** Description           : To load the stock management 
 **
-** Author                : Dinh Pham
+** Author                : Nguyen Manh Hoang
 *******************************************************************************/
 void loadStock() {
     StockManagement stockManagement;
@@ -330,13 +330,6 @@ void loadStock() {
 }
 
 
-/*******************************************************************************
-** Function Name         : loadMainScreen
-**
-** Description           : To load the main screen when start up application
-**
-** Author                : Dinh Pham
-*******************************************************************************/
 /*******************************************************************************
 ** Function Name         : loadCategory
 **
@@ -593,7 +586,13 @@ void loadCategory()
     }
 }
 
-
+/*******************************************************************************
+** Function Name         : loadBackupRestore
+**
+** Description           : To load menu Backup and Restore 
+**
+** Author                : Nguyen Manh Hoang
+*******************************************************************************/
 void loadBackupRestore(){
      int id = 1;
     while(id != 3){
