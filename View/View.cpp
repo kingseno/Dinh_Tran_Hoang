@@ -134,7 +134,7 @@ void loadImport() {
         cout << "Please type Employee ID(1 to 10): ";
         cin >> employeeId;
         /* Show employee name for staff can verify information */
-        Employees* employee = employeeData.GetPointer(employeeId);
+        Employees* employee = employeeData.GetPointer(employeeId - 1);
         cout << "Employee name: " + employee->FirstName << endl;
 
         cout << "Please type Order Date(yyyy-mm-dd): ";
@@ -142,7 +142,7 @@ void loadImport() {
         cout << "Please type Shipper ID(1 to 3): ";
         cin >> shipperId;
         /* Show shipper name for staff can verify information */
-        Shippers* shipper = shipperData.GetPointer(shipperId);
+        Shippers* shipper = shipperData.GetPointer(shipperId - 1);
         cout << "Shipper name: " + shipper->ShipperName << endl;
 
         /* Push new order into database */
