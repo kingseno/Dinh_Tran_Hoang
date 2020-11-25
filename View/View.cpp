@@ -359,6 +359,7 @@ void loadCategory()
     cout << "*         6. Delete Category at Id                       *\n";
     cout << "*         7. Display List of Suppliers                   *\n";
     cout << "*         8. Display List of Category                    *\n";
+    cout << "*         9. Exit                                        *\n";
     cout << "**********************************************************\n";
 
     int choice = 0;

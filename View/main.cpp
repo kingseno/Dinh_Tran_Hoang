@@ -30,8 +30,8 @@ int main() {
     // productData.exportToFile("pretty.json");
     // read_products_from_file();
 
-    //loadMainScreen();
+    loadMainScreen();
     //loadExport();
-    loadCategory();
+    //loadCategory();
     return 0;
 }
