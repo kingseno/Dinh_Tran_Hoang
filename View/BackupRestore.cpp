@@ -1,4 +1,14 @@
+/** @file BackupRestore.cpp
+ *  @brief Backup and restore data
+ *
+ *  @author Nguyen Manh Hoang
+ *  @bug No known bugs.
+ */
+
+
 #include "BackupRestore.h"
+
+// Backup data
 void Backup()
 {
     CategoryData p1("../DataBase/Categories.json");
@@ -41,6 +51,8 @@ void Backup()
     
     
 }
+
+//Restore data
 void Restore(){
     string nameFolder;
     cout << "RESTORE: Input Forder Name: ";
